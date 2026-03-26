@@ -92,7 +92,6 @@ local function makeDraggable(frame, handle)
 
     UserInputService.InputChanged:Connect(function(input)
         if dragging and (input.UserInputType == Enum.UserInputType.Touch
-            or input.UserInputType == Enum.UserInputType.MouseLeftButton
             or input.UserInputType == Enum.UserInputType.MouseMovement) then
             local delta = input.Position - dragStart
             frame.Position = UDim2.new(
@@ -143,7 +142,7 @@ launchLabel.BackgroundTransparency = 1
 launchLabel.Text = "zmods"
 launchLabel.TextColor3 = TEXT_COLOR
 launchLabel.TextScaled = true
-launchLabel.Font = Enum.Font.GothamBold
+launchLabel.Font = Enum.Font.SourceSansBold
 launchLabel.ZIndex = 11
 launchLabel.Parent = launchIcon
 
@@ -215,7 +214,7 @@ headerTitle.Position = UDim2.new(0, 12, 0, 0)
 headerTitle.BackgroundTransparency = 1
 headerTitle.Text = "zmods"
 headerTitle.TextColor3 = TEXT_COLOR
-headerTitle.Font = Enum.Font.GothamBold
+headerTitle.Font = Enum.Font.SourceSansBold
 headerTitle.TextSize = 16
 headerTitle.TextXAlignment = Enum.TextXAlignment.Left
 headerTitle.ZIndex = 25
@@ -233,7 +232,7 @@ minimizeBtn.BackgroundColor3 = ACCENT_COLOR
 minimizeBtn.BackgroundTransparency = 0.5
 minimizeBtn.Text = "-"
 minimizeBtn.TextColor3 = TEXT_COLOR
-minimizeBtn.Font = Enum.Font.GothamBold
+minimizeBtn.Font = Enum.Font.SourceSansBold
 minimizeBtn.TextSize = 18
 minimizeBtn.BorderSizePixel = 0
 minimizeBtn.ZIndex = 25
@@ -253,7 +252,7 @@ closeBtn.BackgroundColor3 = CLOSE_RED
 closeBtn.BackgroundTransparency = 0.2
 closeBtn.Text = "X"
 closeBtn.TextColor3 = TEXT_COLOR
-closeBtn.Font = Enum.Font.GothamBold
+closeBtn.Font = Enum.Font.SourceSansBold
 closeBtn.TextSize = 14
 closeBtn.BorderSizePixel = 0
 closeBtn.ZIndex = 25
@@ -299,7 +298,7 @@ espToggleBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 espToggleBtn.BackgroundTransparency = 0.1
 espToggleBtn.Text = "ESP  OFF"
 espToggleBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
-espToggleBtn.Font = Enum.Font.GothamBold
+espToggleBtn.Font = Enum.Font.SourceSansBold
 espToggleBtn.TextSize = 15
 espToggleBtn.BorderSizePixel = 0
 espToggleBtn.LayoutOrder = 1
@@ -325,7 +324,7 @@ sliderLabel.Size = UDim2.new(1, 0, 0, 18)
 sliderLabel.BackgroundTransparency = 1
 sliderLabel.Text = "BOX COLOR"
 sliderLabel.TextColor3 = Color3.fromRGB(160, 160, 160)
-sliderLabel.Font = Enum.Font.GothamBold
+sliderLabel.Font = Enum.Font.SourceSansBold
 sliderLabel.TextSize = 11
 sliderLabel.TextXAlignment = Enum.TextXAlignment.Left
 sliderLabel.LayoutOrder = 2
@@ -426,7 +425,7 @@ statusLabel.Size = UDim2.new(1, 0, 0, 20)
 statusLabel.BackgroundTransparency = 1
 statusLabel.Text = "Players detected: 0"
 statusLabel.TextColor3 = Color3.fromRGB(120, 120, 120)
-statusLabel.Font = Enum.Font.Gotham
+statusLabel.Font = Enum.Font.SourceSans
 statusLabel.TextSize = 12
 statusLabel.TextXAlignment = Enum.TextXAlignment.Left
 statusLabel.LayoutOrder = 6
@@ -500,7 +499,7 @@ local function createBox(player)
     local nameTag = Instance.new("TextLabel")
     nameTag.BackgroundTransparency = 1
     nameTag.TextColor3 = espColor
-    nameTag.Font = Enum.Font.GothamBold
+    nameTag.Font = Enum.Font.SourceSansBold
     nameTag.TextSize = 12
     nameTag.Text = player.DisplayName
     nameTag.ZIndex = 3
