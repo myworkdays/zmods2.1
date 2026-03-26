@@ -1,8 +1,6 @@
---[[
-    zmods - 2D Box ESP Script
-    Mobile-compatible (Delta Executor)
-    FinTech-style UI | Luau
-]]
+-- zmods - 2D Box ESP Script
+-- Mobile-compatible (Delta Executor)
+-- FinTech-style UI | Luau
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -24,9 +22,7 @@ local function safeDestroy(obj)
     end
 end
 
---[[
-    Attempt to parent to CoreGui, fallback to PlayerGui
-]]
+-- Attempt to parent to CoreGui, fallback to PlayerGui
 local function getGui()
     local success, coreGui = pcall(function()
         return game:GetService("CoreGui")
@@ -46,11 +42,7 @@ ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 ScreenGui.IgnoreGuiInset = true
 ScreenGui.Parent = GuiParent
 
---[[
-    ============================================================
-    DRAWING LAYER - 2D ESP Boxes drawn via Frame objects
-    ============================================================
-]]
+-- DRAWING LAYER - 2D ESP Boxes drawn via Frame objects
 local espCanvas = Instance.new("Frame")
 espCanvas.Name = "ESPCanvas"
 espCanvas.Size = UDim2.new(1, 0, 1, 0)
@@ -59,11 +51,7 @@ espCanvas.BackgroundTransparency = 1
 espCanvas.ZIndex = 1
 espCanvas.Parent = ScreenGui
 
---[[
-    ============================================================
-    THEME CONSTANTS
-    ============================================================
-]]
+-- THEME CONSTANTS
 local BG_COLOR = Color3.fromRGB(20, 20, 20)
 local BG_TRANS = 0.12
 local BORDER_COLOR = Color3.fromRGB(60, 60, 60)
@@ -71,11 +59,7 @@ local TEXT_COLOR = Color3.fromRGB(255, 255, 255)
 local ACCENT_COLOR = Color3.fromRGB(80, 80, 80)
 local CLOSE_RED = Color3.fromRGB(200, 50, 50)
 
---[[
-    ============================================================
-    UTILITY: Make a frame draggable by a handle
-    ============================================================
-]]
+-- UTILITY: Make a frame draggable by a handle
 local function makeDraggable(frame, handle)
     local dragging = false
     local dragStart = nil
@@ -111,11 +95,7 @@ local function makeDraggable(frame, handle)
     end)
 end
 
---[[
-    ============================================================
-    LAUNCH ICON (Circular Button)
-    ============================================================
-]]
+-- LAUNCH ICON (Circular Button)
 local launchIcon = Instance.new("Frame")
 launchIcon.Name = "LaunchIcon"
 launchIcon.Size = UDim2.new(0, 72, 0, 72)
@@ -156,11 +136,7 @@ launchButton.Parent = launchIcon
 
 makeDraggable(launchIcon, launchButton)
 
---[[
-    ============================================================
-    MAIN MENU FRAME
-    ============================================================
-]]
+-- MAIN MENU FRAME
 local mainMenu = Instance.new("Frame")
 mainMenu.Name = "MainMenu"
 mainMenu.Size = UDim2.new(0, 280, 0, 360)
@@ -181,9 +157,7 @@ menuStroke.Color = BORDER_COLOR
 menuStroke.Thickness = 1.5
 menuStroke.Parent = mainMenu
 
---[[
-    Header bar (draggable)
-]]
+-- Header bar (draggable)
 local header = Instance.new("Frame")
 header.Name = "Header"
 header.Size = UDim2.new(1, 0, 0, 44)
@@ -222,9 +196,7 @@ headerTitle.Parent = header
 
 makeDraggable(mainMenu, headerTitle)
 
---[[
-    Minimize button "-"
-]]
+-- Minimize button
 local minimizeBtn = Instance.new("TextButton")
 minimizeBtn.Size = UDim2.new(0, 32, 0, 28)
 minimizeBtn.Position = UDim2.new(1, -72, 0.5, -14)
@@ -242,9 +214,7 @@ local minCorner = Instance.new("UICorner")
 minCorner.CornerRadius = UDim.new(0, 6)
 minCorner.Parent = minimizeBtn
 
---[[
-    Close button "X"
-]]
+-- Close button
 local closeBtn = Instance.new("TextButton")
 closeBtn.Size = UDim2.new(0, 32, 0, 28)
 closeBtn.Position = UDim2.new(1, -36, 0.5, -14)
@@ -262,9 +232,7 @@ local closeCorner = Instance.new("UICorner")
 closeCorner.CornerRadius = UDim.new(0, 6)
 closeCorner.Parent = closeBtn
 
---[[
-    Menu body (hidden when minimized)
-]]
+-- Menu body (hidden when minimized)
 local menuBody = Instance.new("Frame")
 menuBody.Name = "MenuBody"
 menuBody.Size = UDim2.new(1, 0, 1, -44)
@@ -286,11 +254,7 @@ bodyPadding.PaddingLeft = UDim.new(0, 16)
 bodyPadding.PaddingRight = UDim.new(0, 16)
 bodyPadding.Parent = menuBody
 
---[[
-    ============================================================
-    ESP TOGGLE BUTTON
-    ============================================================
-]]
+-- ESP TOGGLE BUTTON
 local espToggleBtn = Instance.new("TextButton")
 espToggleBtn.Name = "ESPToggle"
 espToggleBtn.Size = UDim2.new(1, 0, 0, 48)
@@ -314,11 +278,7 @@ toggleStroke.Color = BORDER_COLOR
 toggleStroke.Thickness = 1
 toggleStroke.Parent = espToggleBtn
 
---[[
-    ============================================================
-    HSV COLOR SLIDER SECTION
-    ============================================================
-]]
+-- HSV COLOR SLIDER LABEL
 local sliderLabel = Instance.new("TextLabel")
 sliderLabel.Size = UDim2.new(1, 0, 0, 18)
 sliderLabel.BackgroundTransparency = 1
@@ -331,6 +291,7 @@ sliderLabel.LayoutOrder = 2
 sliderLabel.ZIndex = 23
 sliderLabel.Parent = menuBody
 
+-- SLIDER TRACK
 local sliderTrack = Instance.new("Frame")
 sliderTrack.Name = "SliderTrack"
 sliderTrack.Size = UDim2.new(1, 0, 0, 18)
@@ -345,24 +306,20 @@ local sliderTrackCorner = Instance.new("UICorner")
 sliderTrackCorner.CornerRadius = UDim.new(0, 9)
 sliderTrackCorner.Parent = sliderTrack
 
---[[
-    Rainbow gradient for hue slider
-]]
+-- Rainbow gradient for hue slider
+local kp0   = ColorSequenceKeypoint.new(0,    Color3.fromHSV(0,    1, 1))
+local kp017 = ColorSequenceKeypoint.new(0.17, Color3.fromHSV(0.17, 1, 1))
+local kp033 = ColorSequenceKeypoint.new(0.33, Color3.fromHSV(0.33, 1, 1))
+local kp05  = ColorSequenceKeypoint.new(0.5,  Color3.fromHSV(0.5,  1, 1))
+local kp067 = ColorSequenceKeypoint.new(0.67, Color3.fromHSV(0.67, 1, 1))
+local kp083 = ColorSequenceKeypoint.new(0.83, Color3.fromHSV(0.83, 1, 1))
+local kp1   = ColorSequenceKeypoint.new(1,    Color3.fromHSV(1,    1, 1))
+
 local sliderGradient = Instance.new("UIGradient")
-sliderGradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0,    Color3.fromHSV(0,    1, 1)),
-    ColorSequenceKeypoint.new(0.17, Color3.fromHSV(0.17, 1, 1)),
-    ColorSequenceKeypoint.new(0.33, Color3.fromHSV(0.33, 1, 1)),
-    ColorSequenceKeypoint.new(0.5,  Color3.fromHSV(0.5,  1, 1)),
-    ColorSequenceKeypoint.new(0.67, Color3.fromHSV(0.67, 1, 1)),
-    ColorSequenceKeypoint.new(0.83, Color3.fromHSV(0.83, 1, 1)),
-    ColorSequenceKeypoint.new(1,    Color3.fromHSV(1,    1, 1)),
-})
+sliderGradient.Color = ColorSequence.new({kp0, kp017, kp033, kp05, kp067, kp083, kp1})
 sliderGradient.Parent = sliderTrack
 
---[[
-    Slider thumb (handle)
-]]
+-- Slider thumb (handle)
 local sliderThumb = Instance.new("Frame")
 sliderThumb.Name = "Thumb"
 sliderThumb.Size = UDim2.new(0, 18, 0, 18)
@@ -382,9 +339,7 @@ thumbStroke.Color = Color3.fromRGB(0, 0, 0)
 thumbStroke.Thickness = 2
 thumbStroke.Parent = sliderThumb
 
---[[
-    Color preview swatch
-]]
+-- Color preview swatch
 local colorPreview = Instance.new("Frame")
 colorPreview.Name = "ColorPreview"
 colorPreview.Size = UDim2.new(1, 0, 0, 24)
@@ -403,11 +358,7 @@ previewStroke.Color = BORDER_COLOR
 previewStroke.Thickness = 1
 previewStroke.Parent = colorPreview
 
---[[
-    ============================================================
-    SEPARATOR LINE
-    ============================================================
-]]
+-- SEPARATOR LINE
 local separator = Instance.new("Frame")
 separator.Size = UDim2.new(1, 0, 0, 1)
 separator.BackgroundColor3 = BORDER_COLOR
@@ -417,9 +368,7 @@ separator.LayoutOrder = 5
 separator.ZIndex = 23
 separator.Parent = menuBody
 
---[[
-    Status label
-]]
+-- Status label
 local statusLabel = Instance.new("TextLabel")
 statusLabel.Size = UDim2.new(1, 0, 0, 20)
 statusLabel.BackgroundTransparency = 1
@@ -432,11 +381,7 @@ statusLabel.LayoutOrder = 6
 statusLabel.ZIndex = 23
 statusLabel.Parent = menuBody
 
---[[
-    ============================================================
-    SLIDER INPUT LOGIC (Mobile + Mouse)
-    ============================================================
-]]
+-- SLIDER INPUT LOGIC (Mobile + Mouse)
 local sliderDragging = false
 
 local function updateSlider(inputPos)
@@ -472,11 +417,7 @@ UserInputService.InputEnded:Connect(function(input)
     end
 end)
 
---[[
-    ============================================================
-    ESP BOX DRAWING HELPERS
-    ============================================================
-]]
+-- ESP BOX DRAWING HELPERS
 local function createBox(player)
     local data = {}
 
@@ -553,13 +494,9 @@ local function removeBox(data)
     safeDestroy(data.nameTag)
 end
 
---[[
-    ============================================================
-    GET PLAYER'S 2D BOUNDING BOX
-    Projects all 8 corners of each body part through the camera.
-    Stays consistent regardless of player rotation.
-    ============================================================
-]]
+-- GET PLAYER 2D BOUNDING BOX
+-- Projects all 8 corners of each body part through camera.
+-- Stays consistent regardless of player rotation.
 local HALF = 0.5
 
 local function getScreenBoundingBox(character)
@@ -575,14 +512,14 @@ local function getScreenBoundingBox(character)
             parts[#parts + 1] = v
         end
     end
-    if rootPart then
-        parts[#parts + 1] = rootPart
-    end
+    parts[#parts + 1] = rootPart
 
     if #parts == 0 then return nil end
 
-    local minX, minY = math.huge, math.huge
-    local maxX, maxY = -math.huge, -math.huge
+    local minX = math.huge
+    local minY = math.huge
+    local maxX = -math.huge
+    local maxY = -math.huge
     local anyOnScreen = false
 
     for _, part in ipairs(parts) do
@@ -591,16 +528,16 @@ local function getScreenBoundingBox(character)
         local sz = part.Size.Z * HALF
         local cf = part.CFrame
 
-        local corners = {
-            cf * CFrame.new( sx,  sy,  sz),
-            cf * CFrame.new(-sx,  sy,  sz),
-            cf * CFrame.new( sx, -sy,  sz),
-            cf * CFrame.new(-sx, -sy,  sz),
-            cf * CFrame.new( sx,  sy, -sz),
-            cf * CFrame.new(-sx,  sy, -sz),
-            cf * CFrame.new( sx, -sy, -sz),
-            cf * CFrame.new(-sx, -sy, -sz),
-        }
+        local c1  = cf * CFrame.new( sx,  sy,  sz)
+        local c2  = cf * CFrame.new(-sx,  sy,  sz)
+        local c3  = cf * CFrame.new( sx, -sy,  sz)
+        local c4  = cf * CFrame.new(-sx, -sy,  sz)
+        local c5  = cf * CFrame.new( sx,  sy, -sz)
+        local c6  = cf * CFrame.new(-sx,  sy, -sz)
+        local c7  = cf * CFrame.new( sx, -sy, -sz)
+        local c8  = cf * CFrame.new(-sx, -sy, -sz)
+
+        local corners = {c1, c2, c3, c4, c5, c6, c7, c8}
 
         for _, cornerCF in ipairs(corners) do
             local screenPos, onScreen = Camera:WorldToViewportPoint(cornerCF.Position)
@@ -619,11 +556,7 @@ local function getScreenBoundingBox(character)
     return minX, minY, maxX - minX, maxY - minY
 end
 
---[[
-    ============================================================
-    PLAYER MANAGEMENT
-    ============================================================
-]]
+-- PLAYER MANAGEMENT
 local function onPlayerAdded(player)
     if player == LocalPlayer then return end
 
@@ -660,11 +593,7 @@ end
 Players.PlayerAdded:Connect(onPlayerAdded)
 Players.PlayerRemoving:Connect(onPlayerRemoving)
 
---[[
-    ============================================================
-    ESP RENDER LOOP
-    ============================================================
-]]
+-- ESP RENDER LOOP
 local espConnection = nil
 
 local function startESP()
@@ -704,11 +633,7 @@ end
 
 startESP()
 
---[[
-    ============================================================
-    TOGGLE BUTTON LOGIC
-    ============================================================
-]]
+-- TOGGLE BUTTON LOGIC
 espToggleBtn.MouseButton1Click:Connect(function()
     espEnabled = not espEnabled
     if espEnabled then
@@ -725,31 +650,19 @@ espToggleBtn.MouseButton1Click:Connect(function()
     end
 end)
 
---[[
-    ============================================================
-    LAUNCH ICON -> MAIN MENU TOGGLE
-    ============================================================
-]]
+-- LAUNCH ICON -> MAIN MENU
 launchButton.MouseButton1Click:Connect(function()
     launchIcon.Visible = false
     mainMenu.Visible   = true
 end)
 
---[[
-    ============================================================
-    HEADER TITLE -> BACK TO ICON
-    ============================================================
-]]
+-- HEADER TITLE -> BACK TO ICON
 headerTitle.MouseButton1Click:Connect(function()
     mainMenu.Visible   = false
     launchIcon.Visible = true
 end)
 
---[[
-    ============================================================
-    MINIMIZE BUTTON
-    ============================================================
-]]
+-- MINIMIZE BUTTON
 local minimized = false
 
 minimizeBtn.MouseButton1Click:Connect(function()
@@ -764,19 +677,13 @@ minimizeBtn.MouseButton1Click:Connect(function()
     end
 end)
 
---[[
-    ============================================================
-    CLOSE BUTTON - Destroys all GUI and stops loops
-    ============================================================
-]]
+-- CLOSE BUTTON - Destroys all GUI and stops loops
 closeBtn.MouseButton1Click:Connect(function()
     stopESP()
-
     for _, data in pairs(espBoxes) do
         removeBox(data)
     end
     espBoxes = {}
-
     if ScreenGui and ScreenGui.Parent then
         ScreenGui:Destroy()
     end
